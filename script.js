@@ -18,6 +18,9 @@ var paddle1Y = 250;
 const PADDLE_HEIGHT = 100;
 const PADDLE_WIDTH = 10;
 
+var player1Win = false;
+var player2Win = false;
+
 function calculateMousePosition(evt){
     var rect = canvas.getBoundingClientRect();
     var root = document.documentElement;
@@ -39,6 +42,8 @@ function handleMouseClick(evt){
     if (showWinScreen){
         player1Score = 0;
         player2Score = 0;
+        player1Win = false;
+        player2Win = false;
         showWinScreen = false;
     }
 }
@@ -60,9 +65,11 @@ window.onload = function(){
 }
 
 function ballReset(){
-    if (player1Score >= WINNING_SCORE || player2Score >= WINNING_SCORE){
-        player1Score = 0;
-        player2Score = 0;
+    if (player1Score == WINNING_SCORE){
+        player1Win = true;
+        showWinScreen = true;
+    } if (player2Score == WINNING_SCORE){
+        player2Win = true;
         showWinScreen = true;
     }
 
@@ -88,17 +95,17 @@ function drawEverything(){
 
     if (titleScreen == true){
         canvasContex.fillStyle = 'white';
-        canvasContex.fillText("CLICK TO START", 345,500)
+        canvasContex.fillText("POGGERS", 368,200)
+        canvasContex.fillText("CLICK TO START", 360,500)
         return
     }
 
     if (showWinScreen == true) {
         canvasContex.fillStyle = 'white';
-        if (player1Score = WINNING_SCORE){
+        if (player1Win){
             canvasContex.fillText("PLAYER 1 WINS", 350,200)
-        } else if (player2Score = WINNING_SCORE){
+        } else if (player2Win){
             canvasContex.fillText("PLAYER 2 WINS", 350,200)
-
         }
         canvasContex.fillText("CLICK TO CONTINUE", 345,500)
         return;
